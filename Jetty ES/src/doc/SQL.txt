@@ -1,0 +1,8 @@
+CREATE DATABASE test_db;
+
+\c test_db;
+
+CREATE TABLE users(
+        name		text,
+        e_mail		text
+);
