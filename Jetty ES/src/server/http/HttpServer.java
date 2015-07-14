@@ -1,19 +1,25 @@
+/*
+* If You Need More Information To Setting
+* You Can Read This : http://www.eclipse.org/jetty/documentation/current/embedding-jetty.html
+*/
+
 package server.http;
 
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import server.http.servlet.MyUploadFile;
 import server.config.Config;
 import javax.servlet.MultipartConfigElement;
+import org.eclipse.jetty.server.NCSARequestLog;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.RequestLogHandler;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
 import server.http.servlet.MyServlet;
 import server.http.system.StatusServer;
@@ -32,17 +38,17 @@ public class HttpServer implements Runnable {
     @Override
     public void run() {
 
-        server = new Server(port);
+        // -------------- Setup Threadpool        
+        QueuedThreadPool threadPool = new QueuedThreadPool();
+        threadPool.setMaxThreads(500);
 
-        if (server == null) {
-            System.err.println("Http Server Error !, Check Port No Using ...");
-            return;
-        }
+        server = new Server(threadPool);
 
-        // -------------- Init
-        ServerConnector c = new ServerConnector(server);
-        c.setIdleTimeout(1000 * 60 * 60);
-        server.addConnector(c);
+        // -------------- Init        
+        ServerConnector http = new ServerConnector(server);
+        http.setPort(port);
+        http.setIdleTimeout(1000 * 60 * 60);        
+        server.addConnector(http);
 
         WebAppContext wac = new WebAppContext();
         wac.setResourceBase(base);
@@ -57,7 +63,7 @@ public class HttpServer implements Runnable {
 
         // Add General Servlet
         context.addServlet(new ServletHolder(new MyServlet()), "/MyServlet");
-        
+
         // Add System Servlet
         context.addServlet(new ServletHolder(new StatusServer()), "/StatusServer");
 
@@ -71,8 +77,21 @@ public class HttpServer implements Runnable {
 
         context.addServlet(holder, "/");
 
+        // === jetty-requestlog.xml ===
+        NCSARequestLog requestLog = new NCSARequestLog();
+        requestLog.setFilename(Config.SERVER_PATH + "/logs/yyyy_mm_dd.request.log");
+        requestLog.setFilenameDateFormat("yyyy_MM_dd");
+        requestLog.setRetainDays(90);
+        requestLog.setAppend(true);
+        requestLog.setExtended(true);
+        requestLog.setLogCookies(false);
+        requestLog.setLogTimeZone("GMT");
+        RequestLogHandler requestLogHandler = new RequestLogHandler();
+        requestLogHandler.setRequestLog(requestLog);
+
         // ----------- Add Handler
         HandlerList hl = new HandlerList();
+        hl.addHandler(requestLogHandler);
         hl.addHandler(context);
 
         server.setHandler(hl);

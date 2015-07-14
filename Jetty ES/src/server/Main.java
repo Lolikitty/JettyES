@@ -15,7 +15,7 @@ public class Main {
     }
 
     void start(String[] args) {
-//        init();
+        init();
         startHTTP(args);
 //        startTCP();
     }
@@ -38,8 +38,8 @@ public class Main {
             }
             System.exit(1);
         }
-
-        new Thread(new HttpServer(defaultPort, defaultPath)).start(); // if you need ...
+        
+        new Thread(new HttpServer(defaultPort, defaultPath)).start();
 //        new Thread(new HttpServer(Config.HTTP_SERVER_PORT, "src/webapps/ROOT/")).start();
     }
 
@@ -53,7 +53,7 @@ public class Main {
 
     void createDir() {
         // Create Dir
-        File dir = new File("Data");
+        File dir = new File("logs");
         if (!dir.exists()) {
             dir.mkdir();
             System.out.println("Create Dir : " + Config.SERVER_PATH);
