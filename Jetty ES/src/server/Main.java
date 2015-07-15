@@ -2,7 +2,6 @@ package server;
 
 import server.http.HttpServer;
 import java.io.File;
-import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import server.config.Config;
@@ -11,7 +10,8 @@ import server.tcp.TcpServer;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        new Main().start(args);
+        new Main().start(args);       
+        System.out.println("ok");
     }
 
     void start(String[] args) {
@@ -38,7 +38,7 @@ public class Main {
             }
             System.exit(1);
         }
-        
+
         new Thread(new HttpServer(defaultPort, defaultPath)).start();
 //        new Thread(new HttpServer(Config.HTTP_SERVER_PORT, "src/webapps/ROOT/")).start();
     }
