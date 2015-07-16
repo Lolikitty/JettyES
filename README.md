@@ -17,4 +17,4 @@ Servlet 可以寫在 Jetty ES/src/server/http/servlet/ 裡 <br>
 
 還有比較特殊的上傳 Servlet 使用 <br>
 
-
+<img src="https://raw.githubusercontent.com/Lolikitty/JettyES/master/Github/DirGettingStart.png" />
