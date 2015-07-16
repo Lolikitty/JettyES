@@ -10,8 +10,7 @@ import server.tcp.TcpServer;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        new Main().start(args);       
-        System.out.println("ok");
+        new Main().start(args);
     }
 
     void start(String[] args) {

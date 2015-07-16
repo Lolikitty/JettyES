@@ -14,9 +14,6 @@ public class MyServlet extends HttpServlet {
               
         try(PrintWriter out = res.getWriter()){
             out.print("Hello");
-            int a = 5;
-            int b = 0;
-            int c= a/b;
         }
         
     }
