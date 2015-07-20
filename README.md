@@ -23,5 +23,9 @@ Servlet 可以寫在 src/server/http/servlet/ 裡 <br>
 <br>
 # 取得系統資訊
 <br>
+這個功能可以做很多事情，例如使用負載平衡，當其中一台伺服器CPU、網路滿載，或者當機掛掉，其他台電腦可以接手繼續處理，伺服器並不會因此而癱瘓掉。<br>
+或者是伺服器當機掛掉，其他台電腦一偵測到異常 (無回應、記憶體不足、硬碟空間不足...等等)，可以發信箱or手機簡訊給管理員，在第一時間搶救電腦。<br>
+簡單來說有這個功能，系統會穩定不少。
+<br>
 <img src="https://raw.githubusercontent.com/Lolikitty/JettyES/master/Github/SysInfo.png" />
 
