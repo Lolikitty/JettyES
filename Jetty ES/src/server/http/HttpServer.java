@@ -55,19 +55,26 @@ public class HttpServer implements Runnable {
 
         ServletContextHandler context = wac;
 
+        // =====================================================================        
+        // 如果你要加入 新頁面 (Servlet)，請在這裡面加入 (等於(//=====)的註解內)
+        // 加入方式有兩種，第一種是一般的頁面，第二種是上傳頁面
+        // 一般頁面只要加入一行，上傳頁面需要加入三行( 記得 sh 的變數名稱也要改
+        
         // ------------- Add Servlets
-        // Add Upload Servlet
+        // Add Upload Servlet 上傳的 Servlet 如果要新增頁面，要加入下面這三行，而非一般的一行
         ServletHolder sh = new ServletHolder(new MyUploadFile());
         sh.getRegistration().setMultipartConfig(new MultipartConfigElement(Config.SERVER_PATH));
         context.addServlet(sh, "/MyUploadFile");
 
-        // Add General Servlet
+        // Add General Servlet 加入一般的 Servlet
         context.addServlet(new ServletHolder(new MyServlet()), "/MyServlet");
 
-        // Add System Servlet
+        // =====================================================================
+        
+        // Add System Servlet 不要動
         context.addServlet(new ServletHolder(new StatusServer()), "/StatusServer");
 
-        // ---------- Close Temp Buffer
+        // ---------- Close Temp Buffer 不要動
         DefaultServlet defaultServlet = new DefaultServlet();
 
         ServletHolder holder = new ServletHolder(defaultServlet);
