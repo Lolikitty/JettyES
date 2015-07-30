@@ -23,6 +23,7 @@ import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
 import server.http.servlet.MyServlet;
 import server.http.system.StatusServer;
+import server.http.system.SysInfo;
 
 public class HttpServer implements Runnable {
 
@@ -73,6 +74,7 @@ public class HttpServer implements Runnable {
         
         // Add System Servlet 不要動
         context.addServlet(new ServletHolder(new StatusServer()), "/StatusServer");
+        context.addServlet(new ServletHolder(new SysInfo()), "/SysInfo");
 
         // ---------- Close Temp Buffer 不要動
         DefaultServlet defaultServlet = new DefaultServlet();

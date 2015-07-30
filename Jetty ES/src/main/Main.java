@@ -4,8 +4,11 @@ import server.http.HttpServer;
 import java.io.File;
 import java.net.URL;
 import java.net.URLConnection;
+import org.hyperic.sigar.Sigar;
+import org.hyperic.sigar.SigarException;
 import server.config.Config;
 import server.tcp.TcpServer;
+import tool.SystemInformation;
 
 public class Main {
 
@@ -17,6 +20,15 @@ public class Main {
         init();
         startHTTP(args);
 //        startTCP();
+        runSystemData();
+    }
+
+    void runSystemData() {
+        try {
+            new SystemInformation(new Sigar());
+        } catch (SigarException | InterruptedException e) {
+            System.err.println(e);
+        }
     }
 
     void startHTTP(String[] args) {
