@@ -11,11 +11,23 @@ public class MyServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-              
-        try(PrintWriter out = res.getWriter()){
-            out.print("Hello");
+        res.setContentType("text/html;charset=UTF-8"); // HTML
+//        res.setContentType("application/json;charset=UTF-8"); // Json
+        try (PrintWriter out = res.getWriter()) {
+            out.println("Hello");
+
+            String name = req.getParameter("name");
+            if (name != null) {
+                out.println("<br><br>");
+                out.println("你的名子是：" + name);
+            }
+            String lover_name = req.getParameter("lover_name");
+            if (lover_name != null) {
+                out.println("<br><br>");
+                out.println("你的情人是：" + lover_name);
+            }
         }
-        
+
     }
 
 }
