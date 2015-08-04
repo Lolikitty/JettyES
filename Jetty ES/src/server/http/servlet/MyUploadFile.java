@@ -22,13 +22,12 @@ public class MyUploadFile extends HttpServlet {
 
         try (PrintWriter out = resp.getWriter()) {
             try {
-                Part p = req.getPart("my_file"); // 就是 upload.html 的  <input type="file" name="my_file" /> 裡面的 name 命名
-
-//            p.write("A.jpg"); // 也可以直接命名，這樣他會保存在專案根目錄中 ~
-                String fileName = extractFileName(p); // 取得檔案名稱
-                p.write("/src/webapps/ROOT/" + fileName); // 保存到指定目錄下
-
-                out.println("Upload  Finish !!"); // 顯示上傳成功
+                for (Part p : req.getParts()) {
+                    System.out.println("ok");
+                    String fileName = extractFileName(p); // 取得檔案名稱
+                    p.write("/src/webapps/ROOT/" + fileName); // 保存到指定目錄下
+                    out.println("Upload  Finish !!"); // 顯示上傳成功
+                }
             } catch (Exception e) {
                 // 如果在 try 中發生錯誤
                 out.println("Error : " + e); // 顯示錯誤訊息

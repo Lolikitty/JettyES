@@ -4,7 +4,7 @@
  * 簡單的來來說，就是模擬客戶端 ( 瀏覽器 )
  *
  */
-package main;
+package example;
 
 import java.io.*;
 import java.net.*;
@@ -13,11 +13,11 @@ import java.net.*;
  *
  * @author Loli
  */
-public class Test {
+public class Example_UploadValue {
 
     public static void main(String[] args) throws Exception {
         // 連接本機伺服器，連接埠為 80
-        URL url = new URL("http://127.0.0.1:80/MyServlet");
+        URL url = new URL("http://localhost:80/MyServlet");
 
         URLConnection conn = url.openConnection();
         conn.setDoOutput(true);
