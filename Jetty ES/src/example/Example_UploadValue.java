@@ -17,14 +17,14 @@ public class Example_UploadValue {
 
     public static void main(String[] args) throws Exception {
         // 連接本機伺服器，連接埠為 80
-        URL url = new URL("http://localhost:80/MyServlet");
+        URL url = new URL("http://169.254.50.54:80/MyServlet");
 
         URLConnection conn = url.openConnection();
         conn.setDoOutput(true);
         try (OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream())) {
             // 兩個參數之間的連接用 & 號串起來
             // 等於 = 的左邊是 Key 鍵，右邊是 Value 值
-            wr.write("name=馬英九&lover_name=陳水扁");
+            wr.write("name=Loli&lover_name=Kitty");
             wr.flush();
             
             // 取得回傳資料

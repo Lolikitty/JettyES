@@ -8,8 +8,38 @@
     <body>
     <center>
         <h1>Welcome Jetty Embedded Server</h1>
+        <hr/>    
+        ---- Choose Your File ----
+        <form method="post" action="/MyUploadFile" enctype="multipart/form-data">  
+            <br />
+            <input type="file" name="my_file" />
+            <br />
+            <br /> 
+            <input type="submit" value="Upload" />
+        </form>    
+        <hr/>        
+        ---- Post Test ----
+        <form method="post" action="/MyServlet">    
+            <br />
+            Name : <input type="text" name="name" value="1. Post Test Text 馬英九" />
+            <br />
+            Lover : <input type="text" name="lover_name" value="2. Post Test Text 陳水扁" />
+            <br />
+            <br /> 
+            <input type="submit" value="Send" />
+        </form>
         <hr/>
-        <a href="upload.html">Upload Page</a>
+        ---- Get Test ----
+        <form method="get" action="/MyServlet">            
+            <br />
+            Name : <input type="text" name="name" value="1. Get Test Text 馬英九" />
+            <br />
+            Lover : <input type="text" name="lover_name" value="2. Get Test Text 陳水扁" />
+            <br />
+            <br /> 
+            <input type="submit" value="Send" />
+        </form>
+        <hr/>
     </center>
 </body>
 </html>

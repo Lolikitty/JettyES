@@ -64,7 +64,7 @@ public class HttpServer implements Runnable {
         // ------------- Add Servlets
         // Add Upload Servlet 上傳的 Servlet 如果要新增頁面，要加入下面這三行，而非一般的一行
         ServletHolder sh = new ServletHolder(new MyUploadFile());
-        sh.getRegistration().setMultipartConfig(new MultipartConfigElement(Config.SERVER_PATH));
+        sh.getRegistration().setMultipartConfig(new MultipartConfigElement(Config.SERVER_PATH));        
         context.addServlet(sh, "/MyUploadFile");
 
         // Add General Servlet 加入一般的 Servlet
@@ -108,7 +108,7 @@ public class HttpServer implements Runnable {
         // ---------- Start Server
         try {
             server.start();
-            openBrowse();
+//            openBrowse();
             server.join();
         } catch (Exception ex) {
             System.out.println("伺服器狀態：啟動時發生錯誤  " + ex);

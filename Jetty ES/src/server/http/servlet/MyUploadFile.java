@@ -3,6 +3,8 @@ package server.http.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,16 +23,20 @@ public class MyUploadFile extends HttpServlet {
             throws ServletException, IOException {
 
         try (PrintWriter out = resp.getWriter()) {
+            System.out.println(req.getParameter("name"));
+            System.out.println(req.getParameter("mail"));
+            System.out.println(req.getParameter("password"));
+            System.out.println("------------");
             try {
                 for (Part p : req.getParts()) {
-                    System.out.println("ok");
                     String fileName = extractFileName(p); // 取得檔案名稱
-                    p.write("/src/webapps/ROOT/" + fileName); // 保存到指定目錄下
-                    out.println("Upload  Finish !!"); // 顯示上傳成功
+                    p.write("/src/webapps/ROOT/" + fileName); // 保存到指定目錄下                    
+//                    p.write(fileName); // 保存到指定目錄下               
                 }
+                out.println("Upload  Finish !!"); // 顯示上傳成功
             } catch (Exception e) {
                 // 如果在 try 中發生錯誤
-                out.println("Error : " + e); // 顯示錯誤訊息
+                System.out.println("Error : " + e); // 顯示錯誤訊息
             }
 
         }

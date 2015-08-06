@@ -24,16 +24,15 @@ import java.util.ArrayList;
  *
  * @author Loli
  */
-public class HttpUploadFile {
+public class WWW {
 
     private String url;
     private ArrayList<String[]> fileList = new ArrayList<>();
-    private long allFilesLength = 0;
-    private long count = 0;
+    private ArrayList<String[]> valueList = new ArrayList<>();
 
-    public String text = "";
+    private  String text = "";
 
-    public HttpUploadFile(String url) {
+    public WWW(String url) {
         this.url = url;
     }
 
@@ -43,18 +42,21 @@ public class HttpUploadFile {
         fileList.add(new String[]{key, path});
     }
 
+    public void addValue(String key, String value) {
+        // [0] = key
+        // [1] = value
+        valueList.add(new String[]{key, value});
+    }
+    
+    public String getText(){
+        return text;
+    }
+
     public void upload() throws MalformedURLException, IOException {
         String charset = "UTF-8";
-        String param = "value";
+
         String boundary = Long.toHexString(System.currentTimeMillis()); // Just generate some unique random value.
         String CRLF = "\r\n"; // Line separator required by multipart/form-data.
-
-        // --- 取得所有檔案長度 (給進度條使用) ---
-        count = 0;
-        allFilesLength = 0;
-        for (String[] fileInfo : fileList) {
-            allFilesLength += new File(fileInfo[1]).length();
-        }
 
         // --- HTTP ---
         URLConnection conn = new URL(url).openConnection();
@@ -66,19 +68,21 @@ public class HttpUploadFile {
 
         try (
                 OutputStream output = conn.getOutputStream();
-                PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);
-                InputStreamReader in = new InputStreamReader(httpConn.getInputStream());
-                BufferedReader br = new BufferedReader(in);) {
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);) {
 
-            // Send normal param.
-            writer.append("--" + boundary).append(CRLF);
-            writer.append("Content-Disposition: form-data; name=\"param\"").append(CRLF);
-            writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF);
-            writer.append(CRLF).append(param).append(CRLF).flush();
+            // 上傳每個參數 ----------------------------------------------------- 
+            // kv [0] = key
+            // kv [1] = path
+            for (String[] kv : valueList) {
+                writer.append("--" + boundary).append(CRLF);
+                writer.append("Content-Disposition: form-data; name=\"" + kv[0] + "\"").append(CRLF);
+                writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF);
+                writer.append(CRLF).append(kv[1]).append(CRLF).flush();
+            }
 
-            // 上傳 每個檔案
+            // 上傳 每個檔案 ----------------------------------------------------
             // fileInfo [0] = key
-            // fileInfo [1] = path                
+            // fileInfo [1] = path
             for (String[] fileInfo : fileList) {
                 File binaryFile = new File(fileInfo[1]);
                 writer.append("--" + boundary).append(CRLF);
@@ -101,11 +105,14 @@ public class HttpUploadFile {
             // End of multipart/form-data.
             writer.append("--" + boundary + "--").append(CRLF).flush();
 
-            // --- 回傳訊息： -----------------------------------------------
-            text = "";
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                text += line;
+            // 回傳訊息 ---------------------------------------------------------
+            try (InputStreamReader in = new InputStreamReader(httpConn.getInputStream());
+                    BufferedReader br = new BufferedReader(in);) {
+                text = "";
+                String line = "";
+                while ((line = br.readLine()) != null) {
+                    text += line;
+                }
             }
         }
     }
