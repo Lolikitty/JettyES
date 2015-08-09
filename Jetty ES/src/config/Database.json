@@ -1,0 +1,14 @@
+{
+    "Sub": {
+        "Database_User_Name": "postgres",
+        "Database_Driver": "org.postgresql.Driver",
+        "Database_URL": "jdbc:postgresql://localhost:5432/test_db",
+        "Database_Password": "a"
+    },
+    "Company": {
+        "Database_User_Name": "postgres",
+        "Database_Driver": "org.postgresql.Driver",
+        "Database_URL": "jdbc:postgresql://localhost:5432/test_db",
+        "Database_Password": "a"
+    }
+}

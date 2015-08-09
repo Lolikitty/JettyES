@@ -9,7 +9,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import server.http.servlet.MyUploadFile;
-import server.config.Config;
+import config.Config;
 import javax.servlet.MultipartConfigElement;
 import org.eclipse.jetty.server.NCSARequestLog;
 import org.eclipse.jetty.server.Server;
@@ -64,7 +64,7 @@ public class HttpServer implements Runnable {
         // ------------- Add Servlets
         // Add Upload Servlet 上傳的 Servlet 如果要新增頁面，要加入下面這三行，而非一般的一行
         ServletHolder sh = new ServletHolder(new MyUploadFile());
-        sh.getRegistration().setMultipartConfig(new MultipartConfigElement(Config.SERVER_PATH));        
+        sh.getRegistration().setMultipartConfig(new MultipartConfigElement(Config.SERVER_ROOT_PATH));
         context.addServlet(sh, "/MyUploadFile");
 
         // Add General Servlet 加入一般的 Servlet

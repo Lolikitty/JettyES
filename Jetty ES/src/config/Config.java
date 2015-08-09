@@ -1,7 +1,7 @@
 /*
  * Copyright © 2014 Chenghsi Inc. All rights reserved
  */
-package server.config;
+package config;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,13 +17,15 @@ public final class Config {
 
     public static String HTTP_SERVER_PUBLIC_IP = "127.0.01";
     public static String HTTP_SERVER_PRIVATE_IP = "127.0.01";
-    public static final int HTTP_SERVER_PORT = 8080;
-    public static final int TCP_SERVER_PORT = 1314;
-    public static final String SERVER_PATH = System.getProperty("user.dir");
-    public static final String DB_DRIVER = "org.postgresql.Driver";
-    public static final String DB_URL = "jdbc:postgresql://localhost:5432/test_db";
-    public static final String DB_USER_NAME = "postgres";
-    public static final String DB_PASSWORD = "a";
+    public static int HTTP_SERVER_PORT = 8080;
+    public static int TCP_SERVER_PORT = 1314;
+    public static String SERVER_PATH = System.getProperty("user.dir");
+    public static String ROOT_PATH = "";
+    public static String SERVER_ROOT_PATH;
+    public static String DB_DRIVER = "org.postgresql.Driver";
+    public static String DB_URL = "jdbc:postgresql://localhost:5432/test_db";
+    public static String DB_USER_NAME = "postgres";
+    public static String DB_PASSWORD = "a";
 
     public Config() {
 //        HTTP_SERVER_PUBLIC_IP = getPublicIp();

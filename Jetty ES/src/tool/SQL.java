@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import server.config.Config;
+import config.Config;
 
 /**
  * @author Loli, Last modification time : AM 11:57 2014/11/10

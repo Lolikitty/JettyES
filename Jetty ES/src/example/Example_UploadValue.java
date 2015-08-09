@@ -8,6 +8,7 @@ package example;
 
 import java.io.*;
 import java.net.*;
+import tool.WWW;
 
 /**
  *
@@ -16,25 +17,21 @@ import java.net.*;
 public class Example_UploadValue {
 
     public static void main(String[] args) throws Exception {
-        // 連接本機伺服器，連接埠為 80
-        URL url = new URL("http://169.254.50.54:80/MyServlet");
+        WWW www = null;
+        try {
+            www = new WWW("http://169.254.50.54/MyUploadFile");
 
-        URLConnection conn = url.openConnection();
-        conn.setDoOutput(true);
-        try (OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream())) {
-            // 兩個參數之間的連接用 & 號串起來
-            // 等於 = 的左邊是 Key 鍵，右邊是 Value 值
-            wr.write("name=Loli&lover_name=Kitty");
-            wr.flush();
-            
-            // 取得回傳資料
-            try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-                String line;
-                // 一行一行列印出來
-                while ((line = rd.readLine()) != null) {
-                    System.out.println(line);
-                }
-            }
+            www.addValue("name", "艾利娜");
+            www.addValue("mail", "aaa@loli.com");
+            www.addValue("password", "!@#$%^&*()_+");
+
+            www.upload();            
+
+            System.out.println(www.getText()); // 輸出回傳訊息
+
+        } catch (Exception e) {
+            System.out.println("[範例練習] 上傳時發生錯誤... : " + e);
         }
+        www.close();
     }
 }

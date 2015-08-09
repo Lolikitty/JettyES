@@ -28,11 +28,11 @@ public class MyUploadFile extends HttpServlet {
 
             for (Part p : req.getParts()) {                
                 try {
-                    String fileName = extractFileName(p); // 取得檔案名稱                    
+                    String fileName = extractFileName(p); // 取得檔案名稱
                     if (fileName == null) {
                         continue;
                     }
-                    p.write("/src/webapps/ROOT/" + fileName); // 保存到指定目錄下
+                    p.write("/webapps/ROOT/" + fileName); // 保存到指定目錄下
 //                  p.write(fileName); // 保存到指定目錄下 
                 } catch (Exception e) {
                     // 如果在 try 中發生錯誤
