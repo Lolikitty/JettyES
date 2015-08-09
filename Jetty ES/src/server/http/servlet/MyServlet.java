@@ -9,12 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MyServlet extends HttpServlet {
 
+    public MyServlet(){
+        System.out.println("ok 5");
+    }
+    
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("text/html;charset=UTF-8"); // HTML
 //        res.setContentType("application/json;charset=UTF-8"); // Json
         try (PrintWriter out = res.getWriter()) {
-            out.println("Hello");
+            out.println("Hello2");
+            
+            out.println(req.getParameter("name"));
 
             String name = req.getParameter("name");
             if (name != null) {
@@ -25,6 +31,11 @@ public class MyServlet extends HttpServlet {
             if (lover_name != null) {
                 out.println("<br><br>");
                 out.println("你的情人是：" + lover_name);
+            }
+            String chineseKey = req.getParameter("中文鍵");
+            if (lover_name != null) {
+                out.println("<br><br>");                
+                out.println("中文鍵 內的 中文值：" + chineseKey);
             }
         }
 

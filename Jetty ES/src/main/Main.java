@@ -32,7 +32,7 @@ public class Main {
     }
 
     void startHTTP(String[] args) {
-        int defaultPort = 80;
+        int defaultPort = 8080;
         String defaultPath = "src/webapps/ROOT/";
 
         if (args.length > 0) {
