@@ -20,14 +20,18 @@ public class MyUploadFile extends HttpServlet {
             throws ServletException, IOException {
 
         try (PrintWriter out = resp.getWriter()) {
+            System.out.println("-------------------------");
             System.out.println(req.getParameter("name"));
             System.out.println(req.getParameter("mail"));
             System.out.println(req.getParameter("password"));
-            System.out.println("------------");
+            System.out.println(req.getParameter("中文鍵"));
 
-            for (Part p : req.getParts()) {
+            for (Part p : req.getParts()) {                
                 try {
-                    String fileName = extractFileName(p); // 取得檔案名稱
+                    String fileName = extractFileName(p); // 取得檔案名稱                    
+                    if (fileName == null) {
+                        continue;
+                    }
                     p.write("/src/webapps/ROOT/" + fileName); // 保存到指定目錄下
 //                  p.write(fileName); // 保存到指定目錄下 
                 } catch (Exception e) {
@@ -49,14 +53,17 @@ public class MyUploadFile extends HttpServlet {
 
     // Get File Name 取得檔案名稱
     private String extractFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
+        String contentDisp = part.getHeader("Content-Disposition");
+        if (!contentDisp.contains("filename")) {
+            return null;
+        }
         String[] items = contentDisp.split(";");
         for (String s : items) {
             if (s.trim().startsWith("filename")) {
                 return s.substring(s.indexOf("=") + 2, s.length() - 1);
             }
         }
-        return "";
+        return null;
     }
 
 }

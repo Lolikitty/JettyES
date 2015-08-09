@@ -20,6 +20,8 @@ public class NewClass1 {
         w.addValue("name", "aaa");
         w.addValue("lover_name", "bbb");
         w.addValue("中文鍵", "中文值");
+        w.addFile("my_file", "C:/Users/Loli/Desktop/A.jpg");
+        w.addFile("my_file", "C:/Users/Loli/Desktop/B.jpg");
         w.addFile("my_file", "C:/Users/Loli/Desktop/C.jpg");
         w.upload();
         w.close();
