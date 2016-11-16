@@ -29,3 +29,11 @@ Servlet 可以寫在 src/server/http/servlet/ 裡 <br>
 <br><br>
 <img src="https://raw.githubusercontent.com/Lolikitty/JettyES/master/Github/SysInfo.png" />
 
+# 部屬注意事項
+
+如果你是想要用 cmd 執行 Jetty ES:
+
+ - 請將 Jetty ES 根目錄的 IDE.conf 複製到 .jar 目錄下，並且把 IDE.conf 內容的 NetBeans 刪除
+ - src/webapps 資料夾請記得複製到 .jar 目錄下
+ - src/config 資料夾請記得複製到 .jar 目錄下
+ - dist/lib 中的建置出的 library 資料，請把所有裡面的有資料夾的 .jar libraray 複製到 src/lib 目錄，否則執行會找不到 library 發生錯誤
